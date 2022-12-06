@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import "./metronome.css";
+import "./metronome.css";
 
 const click1 = "//daveceddia.com/freebies/react-metronome/click1.wav";
 const click2 = "//daveceddia.com/freebies/react-metronome/click2.wav";
@@ -64,15 +64,17 @@ class Metronome extends Component {
       });
     } else {
       // start a timer with current bpm
-      this.timer = setInterval(this.playClick, (60 / this.state.bpm) * 1000);
+      let currBPM = Math.floor(Math.random() * (240 - 60) + 60);
       this.setState(
         {
           count: 0,
-          isPlaying: true
+          isPlaying: true,
+          bpm: currBPM
           // play a click immediately (after setState finishes)
         },
         this.playClick
       );
+      this.timer = setInterval(this.playClick, (60 / currBPM) * 1000);
     }
   };
 
