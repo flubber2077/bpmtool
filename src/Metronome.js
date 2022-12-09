@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import ButtonGroup from "react-bootstrap/ButtonGroup"
 import Form from "react-bootstrap/Form"
 import { getMouseEventOptions } from "@testing-library/user-event/dist/utils/index.js";
+import audioPlayer from "./audioPlayer.js"
 
 
 const click1 = "//daveceddia.com/freebies/react-metronome/click1.wav";
