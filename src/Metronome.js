@@ -12,6 +12,7 @@ const click2 = "//daveceddia.com/freebies/react-metronome/click2.wav";
 const minBPM = 40;
 const maxBPM = 240;
 const scoreCutoff = 10;
+const audioContext = new AudioContext();
 
 export default class Metronome extends Component {
     constructor(props) {

@@ -13,11 +13,16 @@ export default function Scorecard(props) {
             <h1>scorecard</h1>
             <Row>
                 <Col>Over: {props.high}</Col>
-                <Col>Under: {props.low}</Col>
-                <Col>On: {props.on}</Col>
+                <Col>Ratio: {percentage}</Col>
+                
             </Row>
             <Row>
-                <Col>Ratio: {percentage}</Col>
+            <Col>On: {props.on}</Col>
+            <Col>Total Tries: {total}</Col>
+            </Row>
+            <Row>
+                <Col>Under: {props.low}</Col>
+                <Col></Col>
             </Row>
         </Container>
     )
