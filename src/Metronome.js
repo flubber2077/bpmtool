@@ -1,128 +1,74 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Scorecard from "./Scorecard.js";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import ButtonGroup from "react-bootstrap/ButtonGroup"
 import Form from "react-bootstrap/Form"
-import { getMouseEventOptions } from "@testing-library/user-event/dist/utils/index.js";
-import audioPlayer from "./audioPlayer.js"
+let timer = null;
 
-
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
 const click1 = "//daveceddia.com/freebies/react-metronome/click1.wav";
 const click2 = "//daveceddia.com/freebies/react-metronome/click2.wav";
-const minBPM = 40;
-const maxBPM = 240;
-const scoreCutoff = 10;
-const audioContext = new AudioContext();
+const click = new Audio(click1);
 
-export default class Metronome extends Component {
-    constructor(props) {
-        super(props);
+export default function Metronome() {
+    const minBPM = 40;
+    const maxBPM = 240;
+    const scoreCutoff = 10; // percentage range for win condition
+    const [playing, setPlaying] = useState(false);
+    const [low, setLow] = useState(0);
+    const [on, setOn] = useState(0);
+    const [high, setHigh] = useState(0);
+    const [bpm, setBPM] = useState(80);
+    const [guess, setGuess] = useState(80);
 
-        this.state = {
-            isPlaying: false,
-            count: 0,
-            bpm: 100,
-            bpmGuess: 150,
-            beatsPerMeasure: 4,
-            high: 0,
-            low: 0,
-            on: 0
-        };
-
-        this.click1 = new Audio(click1);
-        this.click2 = new Audio(click2);
+    const genNewBPM = () =>{
+        let currBPM = Math.floor(Math.random() * (maxBPM - minBPM) + minBPM);
+        console.log(currBPM);
+        setBPM(currBPM);
     }
 
-    xhandleInputChange = event => {
-        const bpm = event.target.value;
-
-        if (this.state.isPlaying) {
-            // stop old timer and start a new one
-            clearInterval(this.timer);
-            this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
-
-            // set the new bpm
-            // and reset the beat counter
-            this.setState({
-                count: 0,
-                bpm
-            });
+    const onClick = () => {
+        console.log("onClick")
+        const playClick = () => click.play();
+        if (playing) {
+            genNewBPM();
+            clearInterval(timer);
+            setPlaying(false);
         } else {
-            // otherwise, just update the bpm
-            this.setState({ bpm });
+            timer = setInterval(playClick, (60/bpm)*1000);
+            setPlaying(true);
+            playClick();
         }
     };
 
-    handleInputChange = event => {
-        const bpmGuess = event.target.value;
-        this.setState({ bpmGuess });
-    };
-
-    playClick = () => {
-        const { count, beatsPerMeasure } = this.state;
-
-        // alternate click sounds
-        if (count % beatsPerMeasure === 0) {
-            this.click2.play();
-        } else {
-            this.click1.play();
-        }
-
-        // keep track of which beat we're on
-        this.setState(state => ({
-            count: (state.count + 1) % state.beatsPerMeasure
-        }));
-    };
-
-    handleSubmit = event => {
+    const handleSubmit = event => {
+        console.log("handleSubmit")
         event.preventDefault();
-        const bpmGuess = event.target[0].value;
-        let percDiff = Math.trunc((bpmGuess - this.state.bpm) / this.state.bpm * 100);
-        if(Math.abs(percDiff) < scoreCutoff){
-            this.setState({on: this.state.on + 1});
-            this.startStop();
+        let percDiff = Math.trunc((guess - bpm) / bpm * 100);
+        if (Math.abs(percDiff) < scoreCutoff) {
+            setOn(on + 1);
+            setPlaying(false);
+            clearInterval(timer);
         }
-        else if (percDiff < 0) this.setState({low: this.state.low + 1});
-        else this.setState({high: this.state.high + 1});
+        else if (percDiff < 0) setLow(low + 1);
+        else setHigh(high + 1);
     }
 
-    startStop = () => {
-        if (this.state.isPlaying) {
-            // stop the timer
-            clearInterval(this.timer);
-            this.setState({
-                isPlaying: false
-            });
-        } else {
-            // start a timer with a random bpm
-            let currBPM = Math.floor(Math.random() * (maxBPM - minBPM) + minBPM);
-            this.setState(
-                {
-                    count: 0,
-                    isPlaying: true,
-                    bpm: currBPM
-                    // play a click immediately (after setState finishes)
-                },
-                this.playClick
-            );
-            this.timer = setInterval(this.playClick, (60 / currBPM) * 1000);
-        }
-    };
+    const handleInputChange = event => setGuess(event.target.value);
 
-    render() {
-        const { isPlaying, bpm, bpmGuess, high, low, on} = this.state;
-        return (
-            <Container fluid="sm">
-                <Button onClick={this.startStop}>{isPlaying ? "Stop" : "Start"}</Button>
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Label>BPM Guess {bpmGuess}</Form.Label>
-                    <Form.Range min={minBPM} max={maxBPM} onChange={this.handleInputChange} />
-                    <Button type="submit">Submit</Button>
-                </Form>
+    return (
+        <Container fluid="sm">
+            <div>
+                <Button id="playButton" onClick={onClick}>{playing ? "start" : "stop"}</Button>
+            </div>
+            <Form onSubmit={handleSubmit}>
+                <Form.Label>BPM Guess {guess}</Form.Label>
+                <Form.Range min={minBPM} max={maxBPM} onChange={handleInputChange} />
+                <Button type="submit">Submit</Button>
+            </Form>
 
-                <Scorecard high={high} low={low} on={on} />
-            </Container>
-        );
-    }
+            <Scorecard high={high} low={low} on={on} />
+        </Container>
+    );
 }
