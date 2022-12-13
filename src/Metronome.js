@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import click1 from "./click.mp3";
-import silence from "./silence.wav";
+import silence1 from "./silence.wav";
 import {Howler, Howl} from "howler";
 import {useInterval} from 'usehooks-ts'
 
@@ -16,10 +16,10 @@ const click = new Howl({
 });
 
 const silence = new Howl({
-    src: silence,
+    src: silence1,
     html5: true,
     loop: true,
-    preload: "metadata"
+    preload: true
 })
 
 let timer = null;
