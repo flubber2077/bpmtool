@@ -35,8 +35,10 @@ export default function Metronome() {
     const [bpm, setBPM] = useState();
     const [guess, setGuess] = useState((minBPM+maxBPM)/2);
     
+    const rangeConversion = num => Math.floor(num * (maxBPM - minBPM) + minBPM);
+
     const genNewBPM = () =>{
-        let currBPM = Math.floor(Math.random() * (maxBPM - minBPM) + minBPM);
+        let currBPM = rangeConversion(Math.random());
         setBPM(currBPM);
         return currBPM;
     }
@@ -69,7 +71,10 @@ export default function Metronome() {
         else setHigh(high + 1);
     }
 
-    const handleInputChange = event => setGuess(event.target.value);
+    const handleInputChange = event => {
+        let input = parseFloat(event.target.value);
+        setGuess(rangeConversion((input + (input*input*input))/2)); // quasi exponential response
+    };
 
     return (
         <Container fluid="sm">
@@ -78,7 +83,7 @@ export default function Metronome() {
             </div>
             <Form onSubmit={handleSubmit}>
                 <Form.Label>BPM Guess {guess}</Form.Label>
-                <Form.Range min={minBPM} max={maxBPM} onChange={handleInputChange} />
+                <Form.Range min="0" max="1" step=".002"onChange={handleInputChange} />
                 <Button type="submit">Submit</Button>
             </Form>
 
