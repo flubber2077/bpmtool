@@ -3,15 +3,14 @@ import Scorecard from "./Scorecard.js";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form"
+import click1 from "./click.mp3"
+import {Howler, Howl} from "howler";
 import { TaskTimer } from 'tasktimer';
-let baseInterval = 200 // 30 ms is smallest interval
-const timer = new TaskTimer(baseInterval);
+const timer = new TaskTimer();
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
-const click1 = "//daveceddia.com/freebies/react-metronome/click1.wav";
-const click2 = "//daveceddia.com/freebies/react-metronome/click2.wav";
-const click = new Audio(click1);
+const click = new Howl({
+    src: click1
+});
 timer.on('tick', () => {
     click.play();
     // stop timer (and all tasks) after 1 hour
@@ -19,30 +18,27 @@ timer.on('tick', () => {
 });
 
 export default function Metronome() {
-    const minBPM = 40;
+    const minBPM = 50;
     const maxBPM = 240;
     const scoreCutoff = 10; // percentage range for win condition
     const [low, setLow] = useState(0);
     const [on, setOn] = useState(0);
     const [high, setHigh] = useState(0);
-    const [bpm, setBPM] = useState(120);
-    const [guess, setGuess] = useState(80);
-
+    const [bpm, setBPM] = useState();
+    const [guess, setGuess] = useState((minBPM+maxBPM)/2);
+    
     const genNewBPM = () =>{
         let currBPM = Math.floor(Math.random() * (maxBPM - minBPM) + minBPM);
-        console.log(currBPM);
         setBPM(currBPM);
         return currBPM;
     }
-
     const onClick = () => {
-        console.log("onClick")
-        console.log(timer)
-        if (timer.state == "running") {
+        if (timer.state === "running") {
             timer.stop();
         } else {
             timer.interval = (60/genNewBPM())*1000;
             timer.start();
+
         }
     };
 
@@ -63,7 +59,7 @@ export default function Metronome() {
     return (
         <Container fluid="sm">
             <div>
-                <Button id="playButton" onClick={onClick}>{timer.state == "running" ? "stop" : "start"}</Button>
+                <Button id="playButton" onClick={onClick}>{timer.state === "running" ? "stop" : "start"}</Button>
             </div>
             <Form onSubmit={handleSubmit}>
                 <Form.Label>BPM Guess {guess}</Form.Label>
