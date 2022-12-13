@@ -1,26 +1,25 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import Scorecard from "./Scorecard.js";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form"
 import click1 from "./click.mp3"
 import {Howler, Howl} from "howler";
-import { TaskTimer } from 'tasktimer';
-const timer = new TaskTimer();
+import {useInterval} from 'usehooks-ts'
 
 const click = new Howl({
-    src: click1
-});
-timer.on('tick', () => {
-    click.play();
-    // stop timer (and all tasks) after 1 hour
-    if (timer.tickCount >= 360) timer.stop();
+    src: click1,
+    onplayerror: () => alert('player error'),
+    onloaderror: () => alert('load error')
 });
 
+let timer = null;
+
 export default function Metronome() {
-    const minBPM = 50;
+    const minBPM = 40;
     const maxBPM = 240;
     const scoreCutoff = 10; // percentage range for win condition
+    const [playing, setPlaying] = useState(false);
     const [low, setLow] = useState(0);
     const [on, setOn] = useState(0);
     const [high, setHigh] = useState(0);
@@ -32,23 +31,28 @@ export default function Metronome() {
         setBPM(currBPM);
         return currBPM;
     }
-    const onClick = () => {
-        if (timer.state === "running") {
-            timer.stop();
-        } else {
-            timer.interval = (60/genNewBPM())*1000;
-            timer.start();
 
+    useInterval(
+        () => click.play(),
+        playing ? (60/bpm) * 1000 : null,
+    )
+
+    const onClick = () => {
+        if (playing) {
+            setPlaying(false);
+        } else {
+            genNewBPM();
+            setPlaying(true);
+            click.play();
         }
     };
 
     const handleSubmit = event => {
-        console.log("handleSubmit")
         event.preventDefault();
         let percDiff = Math.trunc((guess - bpm) / bpm * 100);
         if (Math.abs(percDiff) < scoreCutoff) {
             setOn(on + 1);
-            timer.stop();
+            setPlaying(false);
         }
         else if (percDiff < 0) setLow(low + 1);
         else setHigh(high + 1);
@@ -59,7 +63,7 @@ export default function Metronome() {
     return (
         <Container fluid="sm">
             <div>
-                <Button id="playButton" onClick={onClick}>{timer.state === "running" ? "stop" : "start"}</Button>
+                <Button id="playButton" onClick={onClick}>{playing ? "Stop" : "Start"}</Button>
             </div>
             <Form onSubmit={handleSubmit}>
                 <Form.Label>BPM Guess {guess}</Form.Label>
