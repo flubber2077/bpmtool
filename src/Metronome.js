@@ -5,8 +5,8 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import click1 from "./click.mp3";
 import silence1 from "./silence.wav";
-import {Howler, Howl} from "howler";
-import {useInterval} from 'usehooks-ts'
+import { Howler, Howl } from "howler";
+import { useInterval } from 'usehooks-ts'
 
 const click = new Howl({
     src: click1,
@@ -20,9 +20,7 @@ const silence = new Howl({
     html5: true,
     loop: true,
     preload: true
-})
-
-let timer = null;
+});
 
 export default function Metronome() {
     const minBPM = 40;
@@ -33,37 +31,30 @@ export default function Metronome() {
     const [on, setOn] = useState(0);
     const [high, setHigh] = useState(0);
     const [bpm, setBPM] = useState();
-    const [guess, setGuess] = useState((minBPM+maxBPM)/2);
-    
-    const rangeConversion = num => Math.floor(num * (maxBPM - minBPM) + minBPM);
+    const [guess, setGuess] = useState(102);
 
-    const genNewBPM = () =>{
-        let currBPM = rangeConversion(Math.random());
-        setBPM(currBPM);
-        return currBPM;
-    }
+    const rangeConversion = num => Math.round(num * (maxBPM - minBPM) + minBPM);
 
-    useInterval(
-        () => click.play(),
-        playing ? (60/bpm) * 1000 : null,
-    )
+    const genNewBPM = () => setBPM(rangeConversion(Math.random()));
+
+    useInterval(() => click.play(), playing ? (60 / bpm) * 1000 : null);
 
     const onClick = () => {
         if (playing) {
             silence.pause();
-            setPlaying(false);
-        } else {
-            genNewBPM();
-            setPlaying(true);
+        }
+        else {
             silence.play();
             click.play();
         }
+        setPlaying(!playing);
     };
 
     const handleSubmit = event => {
         event.preventDefault();
-        let percDiff = Math.trunc((guess - bpm) / bpm * 100);
+        let percDiff = (guess - bpm) / bpm * 100;
         if (Math.abs(percDiff) < scoreCutoff) {
+            genNewBPM();
             setOn(on + 1);
             setPlaying(false);
         }
@@ -73,7 +64,7 @@ export default function Metronome() {
 
     const handleInputChange = event => {
         let input = parseFloat(event.target.value);
-        setGuess(rangeConversion((input + (input*input*input))/2)); // quasi exponential response
+        setGuess(rangeConversion((input + (input * input * input)) / 2)); // quasi exponential response
     };
 
     return (
@@ -83,11 +74,11 @@ export default function Metronome() {
             </div>
             <Form onSubmit={handleSubmit}>
                 <Form.Label>BPM Guess {guess}</Form.Label>
-                <Form.Range min="0" max="1" step=".002"onChange={handleInputChange} />
+                <Form.Range min="0" max="1" step=".002" onChange={handleInputChange} />
                 <Button type="submit">Submit</Button>
             </Form>
 
             <Scorecard high={high} low={low} on={on} />
         </Container>
     );
-}
+};

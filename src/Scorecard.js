@@ -3,9 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 export default function Scorecard(props) {
-    function formatAsPercent(decimal) {
-        return Math.floor(decimal * 100) + "%";
-    }
+    const formatAsPercent = decimal => Math.floor(decimal * 100) + "%";
     let total = props.on + props.high + props.low;
     let percentage = formatAsPercent(props.on / total);
     return (

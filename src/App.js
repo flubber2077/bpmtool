@@ -1,12 +1,13 @@
 import React from "react";
 import Metronome from "./Metronome";
-import "./App.css";
+import Container from "react-bootstrap/Container";
+// import "./App.css";
 
 export default function App() {
   return (
-    <div className="App">
+    <Container fluid="sm">
       <header><h1>BPM Trainer</h1></header>
       <Metronome />
-    </div>
+    </Container>
   );
 }
