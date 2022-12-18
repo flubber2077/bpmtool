@@ -2,7 +2,7 @@
 $main: #3AAFA9;
 $dark: #17252A;
 $md-dark: #2b7a78;
-$md-light: #def2f1;
+$md-light: #c7dfdd;
 $light: #eee;
 
 .app, .interact {
@@ -16,7 +16,7 @@ $light: #eee;
 }
 
 body {
-    overflow: auto;
+    overflow: hidden;
     background-color: #0d1518;
 }
 
@@ -35,4 +35,5 @@ h2, p {
 
 p{
     font-size: 1.2em;
+    margin-bottom: .2em;
 }
