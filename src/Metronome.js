@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import click1 from "./click.mp3";
 import silence1 from "./silence.mp3";
-import { Howler, Howl } from "howler";
+import { Howl } from "howler";
 import { useInterval } from 'usehooks-ts';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -45,7 +45,7 @@ export default function Metronome() {
             silence.play();
             click.play();
         }
-        setPlaying(!playing);
+        setPlaying(playing=>!playing);
     };
 
     const handleSubmit = event => {
@@ -54,7 +54,7 @@ export default function Metronome() {
         let [low,on,high] = score;
         if (Math.abs(percDiff) < scoreCutoff){
             genNewBPM();
-            setPlaying(false);
+            setPlaying(playing=>!playing);
             on++;
         }
         else if (percDiff < 0) low++;
