@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/bpmtool/static/css/main.4a5c7add.css",
-    "main.js": "/bpmtool/static/js/main.6d7abba3.js",
+    "main.css": "/bpmtool/static/css/main.8e5610ed.css",
+    "main.js": "/bpmtool/static/js/main.1d63b0cd.js",
     "static/js/787.acf5b03c.chunk.js": "/bpmtool/static/js/787.acf5b03c.chunk.js",
-    "static/media/silence.wav": "/bpmtool/static/media/silence.64b1c77602ccf80ef912.wav",
+    "static/media/silence.mp3": "/bpmtool/static/media/silence.4c5b2ebb84b7acf063bf.mp3",
     "static/media/click.mp3": "/bpmtool/static/media/click.c2069a9c78c3c1d9737b.mp3",
     "index.html": "/bpmtool/index.html",
-    "main.4a5c7add.css.map": "/bpmtool/static/css/main.4a5c7add.css.map",
-    "main.6d7abba3.js.map": "/bpmtool/static/js/main.6d7abba3.js.map",
+    "main.8e5610ed.css.map": "/bpmtool/static/css/main.8e5610ed.css.map",
+    "main.1d63b0cd.js.map": "/bpmtool/static/js/main.1d63b0cd.js.map",
     "787.acf5b03c.chunk.js.map": "/bpmtool/static/js/787.acf5b03c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4a5c7add.css",
-    "static/js/main.6d7abba3.js"
+    "static/css/main.8e5610ed.css",
+    "static/js/main.1d63b0cd.js"
   ]
 }
