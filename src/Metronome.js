@@ -71,7 +71,7 @@ export default function Metronome() {
         <div className="interact">
             <Scorecard score={score} />
             <Form onSubmit={handleSubmit}>
-                <Form.Group>
+                <Form.Group controlId="formBPMGuess">
                     <Form.Label>BPM Guess {guess}</Form.Label>
                     <Form.Range min="0" max="1" step=".002" onChange={handleInputChange} />
                 </Form.Group>

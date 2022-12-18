@@ -10,6 +10,12 @@ $light: #eee;
     border-radius: 20px;
     padding: 12px;
 }
+
+.app {
+    position: relative;
+    margin-top: 3vh;
+}
+
 .interact {
     background-color: $main;
     text-align: center;
@@ -36,4 +42,8 @@ h2, p {
 p{
     font-size: 1.2em;
     margin-bottom: .2em;
+}
+
+.form-label{
+    margin-bottom: 0px;
 }

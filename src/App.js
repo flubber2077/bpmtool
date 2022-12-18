@@ -9,7 +9,7 @@ export default function App() {
     <Container fluid="sm">
       <Row>
         <Col className="filler"/>
-        <Col  className="app" md={5} lg={4}>
+        <Col  className="app align-self-end" md={4} lg={5}>
           <header>
             <h1>BPM Trainer</h1>
             <h4>by Dylan Jordan</h4>
