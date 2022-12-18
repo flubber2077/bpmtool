@@ -7,21 +7,20 @@ export default function Scorecard(props) {
     let total = props.on + props.high + props.low;
     let percentage = formatAsPercent(props.on / total);
     return (
-        <Container>
-            <h1>scorecard</h1>
+        <div className="scorecard">
+            <h2>scorecard</h2>
             <Row>
-                <Col>Over: {props.high}</Col>
-                <Col>Ratio: {percentage}</Col>
-                
+                <Col><p>Over: {props.high}</p></Col>
+                <Col><p>Ratio: {percentage}</p></Col>
             </Row>
             <Row>
-            <Col>On: {props.on}</Col>
-            <Col>Total Tries: {total}</Col>
+                <Col><p>On: {props.on}</p></Col>
+                <Col><p>Total Tries: {total}</p></Col>
             </Row>
             <Row>
-                <Col>Under: {props.low}</Col>
+                <Col><p>Under: {props.low}</p></Col>
                 <Col></Col>
             </Row>
-        </Container>
+        </div>
     )
 }

@@ -1,0 +1,38 @@
+@import "custom";
+$main: #3AAFA9;
+$dark: #17252A;
+$md-dark: #2b7a78;
+$md-light: #def2f1;
+$light: #eee;
+
+.app, .interact {
+    background-color: $dark;
+    border-radius: 20px;
+    padding: 12px;
+}
+.interact {
+    background-color: $main;
+    text-align: center;
+}
+
+body {
+    overflow: auto;
+    background-color: #0d1518;
+}
+
+.btn {
+    margin: auto;
+    color: $light;
+}
+
+h1, h4 {
+    color: $md-light;
+}
+
+h2, p {
+    color: $dark;
+}
+
+p{
+    font-size: 1.2em;
+}

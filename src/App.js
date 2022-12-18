@@ -1,13 +1,23 @@
 import React from "react";
 import Metronome from "./Metronome";
 import Container from "react-bootstrap/Container";
-// import "./App.css";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function App() {
   return (
     <Container fluid="sm">
-      <header><h1>BPM Trainer</h1></header>
-      <Metronome />
+      <Row>
+        <Col className="filler"/>
+        <Col  className="app" md={5} lg={4}>
+          <header>
+            <h1>BPM Trainer</h1>
+            <h4>by Dylan Jordan</h4>
+          </header>
+          <Metronome />
+        </Col>
+        <Col className="filler"/>
+      </Row>
     </Container>
   );
 }
