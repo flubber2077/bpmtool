@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Scorecard from "./Scorecard.js";
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import click1 from "./click.mp3";
 import silence1 from "./silence.mp3";
-import { Howler, Howl } from "howler";
+import { Howl } from "howler";
 import { useInterval } from 'usehooks-ts';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -27,9 +26,7 @@ export default function Metronome() {
     const maxBPM = 240;
     const scoreCutoff = 10; // percentage range for win condition
     const [playing, setPlaying] = useState(false);
-    const [low, setLow] = useState(0);
-    const [on, setOn] = useState(0);
-    const [high, setHigh] = useState(0);
+    const [score, setScore] = useState([0,0,0]); //[low, on, high]
     const [bpm, setBPM] = useState();
     const [guess, setGuess] = useState(102);
 
@@ -48,19 +45,21 @@ export default function Metronome() {
             silence.play();
             click.play();
         }
-        setPlaying(!playing);
+        setPlaying(playing=>!playing);
     };
 
     const handleSubmit = event => {
         event.preventDefault();
         let percDiff = (guess - bpm) / bpm * 100;
-        if (Math.abs(percDiff) < scoreCutoff) {
+        let [low,on,high] = score;
+        if (Math.abs(percDiff) < scoreCutoff){
             genNewBPM();
-            setOn(on + 1);
-            setPlaying(false);
+            setPlaying(playing=>!playing);
+            on++;
         }
-        else if (percDiff < 0) setLow(low + 1);
-        else setHigh(high + 1);
+        else if (percDiff < 0) low++;
+        else high++;
+        setScore([low,on,high]);
     }
 
     const handleInputChange = event => {
@@ -70,7 +69,7 @@ export default function Metronome() {
 
     return (
         <div className="interact">
-            <Scorecard high={high} low={low} on={on} />
+            <Scorecard score={score} />
             <Form onSubmit={handleSubmit}>
                 <Form.Group>
                     <Form.Label>BPM Guess {guess}</Form.Label>
