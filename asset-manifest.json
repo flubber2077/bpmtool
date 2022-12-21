@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/bpmtool/static/css/main.5009d006.css",
-    "main.js": "/bpmtool/static/js/main.054e5f37.js",
+    "main.css": "/bpmtool/static/css/main.10f81c59.css",
+    "main.js": "/bpmtool/static/js/main.53d80a6c.js",
     "static/js/787.acf5b03c.chunk.js": "/bpmtool/static/js/787.acf5b03c.chunk.js",
     "static/media/silence.mp3": "/bpmtool/static/media/silence.4c5b2ebb84b7acf063bf.mp3",
     "static/media/click.mp3": "/bpmtool/static/media/click.041502c126f70eac16a8.mp3",
     "index.html": "/bpmtool/index.html",
-    "main.5009d006.css.map": "/bpmtool/static/css/main.5009d006.css.map",
-    "main.054e5f37.js.map": "/bpmtool/static/js/main.054e5f37.js.map",
+    "main.10f81c59.css.map": "/bpmtool/static/css/main.10f81c59.css.map",
+    "main.53d80a6c.js.map": "/bpmtool/static/js/main.53d80a6c.js.map",
     "787.acf5b03c.chunk.js.map": "/bpmtool/static/js/787.acf5b03c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5009d006.css",
-    "static/js/main.054e5f37.js"
+    "static/css/main.10f81c59.css",
+    "static/js/main.53d80a6c.js"
   ]
 }
