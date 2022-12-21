@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/bpmtool/static/css/main.10f81c59.css",
-    "main.js": "/bpmtool/static/js/main.53d80a6c.js",
+    "main.js": "/bpmtool/static/js/main.68183cdf.js",
     "static/js/787.acf5b03c.chunk.js": "/bpmtool/static/js/787.acf5b03c.chunk.js",
     "static/media/silence.mp3": "/bpmtool/static/media/silence.4c5b2ebb84b7acf063bf.mp3",
     "static/media/click.mp3": "/bpmtool/static/media/click.041502c126f70eac16a8.mp3",
     "index.html": "/bpmtool/index.html",
     "main.10f81c59.css.map": "/bpmtool/static/css/main.10f81c59.css.map",
-    "main.53d80a6c.js.map": "/bpmtool/static/js/main.53d80a6c.js.map",
+    "main.68183cdf.js.map": "/bpmtool/static/js/main.68183cdf.js.map",
     "787.acf5b03c.chunk.js.map": "/bpmtool/static/js/787.acf5b03c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.10f81c59.css",
-    "static/js/main.53d80a6c.js"
+    "static/js/main.68183cdf.js"
   ]
 }
