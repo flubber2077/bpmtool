@@ -11,11 +11,9 @@ export default function App() {
         <Col className="app mx-auto" md={5}>
           <header>
             <Row className="justify-content-between">
-              <Col xs={6} sm="auto"><h1>BPM Trainer</h1></Col>
+              <Col xs={10} sm="auto"><h1>BPM Trainer</h1></Col>
               <Col xs="auto"><h1>by Dylan Jordan</h1></Col>
             </Row>
-            
-            
           </header>
           <Metronome />
         </Col>
