@@ -10,16 +10,22 @@ export default function Scorecard(props) {
         <div className="scorecard">
             <h2>scorecard</h2>
             <Row>
-                <Col><p>Over: {high}</p></Col>
-                <Col><p>Ratio: {percentage}</p></Col>
+                <Col className="px-0 text-end"><p>Over: </p></Col>
+                <Col className="px-0 text-start"><p> {high}</p></Col>
+                <Col className="px-0 text-end"><p>Ratio: </p></Col>
+                <Col className="px-0 text-start"><p> {percentage}</p></Col>
             </Row>
             <Row>
-                <Col><p>On: {on}</p></Col>
-                <Col><p>Total Tries: {total}</p></Col>
+                <Col className="px-0 text-end"><p>On:</p></Col>
+                <Col className="px-0 text-start"><p>{on}</p></Col>
+                <Col className="px-0 text-end"><p>Attempts:</p></Col>
+                <Col className="px-0 text-start"><p>{total}</p></Col>
             </Row>
             <Row>
-                <Col><p>Under: {low}</p></Col>
-                <Col></Col>
+                <Col className="px-0 text-end"><p>Under:</p></Col>
+                <Col className="px-0 text-start"><p>{low}</p></Col>
+                <Col className="px-0"></Col>
+                <Col className="px-0"></Col>
             </Row>
         </div>
     )

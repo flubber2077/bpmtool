@@ -6,17 +6,19 @@ import Col from 'react-bootstrap/Col';
 
 export default function App() {
   return (
-    <Container fluid="sm">
+    <Container fluid="sm" >
       <Row>
-        <Col className="filler"/>
-        <Col  className="app align-self-end" md={4} lg={5}>
+        <Col className="app mx-auto" md={5}>
           <header>
-            <h1>BPM Trainer</h1>
-            <h4>by Dylan Jordan</h4>
+            <Row className="justify-content-between">
+              <Col xs={6} sm="auto"><h1>BPM Trainer</h1></Col>
+              <Col xs="auto"><h1>by Dylan Jordan</h1></Col>
+            </Row>
+            
+            
           </header>
           <Metronome />
         </Col>
-        <Col className="filler"/>
       </Row>
     </Container>
   );
